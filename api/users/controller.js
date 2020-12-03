@@ -11,13 +11,13 @@ const {create, getUserByEmail, getUserById, getUsers, updateUser, deleteUser} = 
         if (err) {
           console.log(err);
           return res.status(500).json({
-            success: 0,
-            message: "Database connection errror"
+            success: false,
+            message: "Email or PhoneNumber already exist"
           });
         }
         return res.status(200).json({
-          success: 1,
-          data: results
+          success: true,
+          message: "Register successfully !"
         });
       });
     },
@@ -31,7 +31,7 @@ const {create, getUserByEmail, getUserById, getUsers, updateUser, deleteUser} = 
         if (!results) {
           return res.json({
             success: 0,
-            data: "Invalid email or password"
+            data: "Incorrect email or password"
           });
         }
         const result = compareSync(body.password, results.password);
@@ -44,11 +44,12 @@ const {create, getUserByEmail, getUserById, getUsers, updateUser, deleteUser} = 
             success: 1,
             message: "login successfully",
             token: jsontoken
+            
           });
         } else {
           return res.json({
             success: 0,
-            data: "Invalid email or password"
+            data: "Incorrect email or password"
           });
         }
       });
@@ -61,7 +62,7 @@ const {create, getUserByEmail, getUserById, getUsers, updateUser, deleteUser} = 
           return;
         }
         return res.json({
-          success: 1,
+          success: true,
           data: results
         });
       });
@@ -76,13 +77,13 @@ const {create, getUserByEmail, getUserById, getUsers, updateUser, deleteUser} = 
         }
         if (!results) {
           return res.json({
-            success: 0,
+            success: false,
             message: "Record not Found"
           });
         }
         results.password = undefined;
         return res.json({
-          success: 1,
+          success: true,
           data: results
         });
       });
@@ -98,12 +99,12 @@ const {create, getUserByEmail, getUserById, getUsers, updateUser, deleteUser} = 
         }
         if (!results) {
           return res.json({
-            success: 0,
+            success: false,
             message: "Update Failed !"
           });
         }
         return res.json({
-          success: 1,
+          success: true,
           message: "updated successfully"
         });
       });
@@ -119,12 +120,12 @@ const {create, getUserByEmail, getUserById, getUsers, updateUser, deleteUser} = 
         }
         if (!results) {
           return res.json({
-            success: 0,
+            success: false,
             message: "Not Found"
           });
         }
         return res.json({
-          success: 1,
+          success: true,
           message: "user deleted successfully"
         });
       });
